@@ -1,0 +1,11 @@
+{
+  "name": "Claire & Paul, March 7, 2027",
+  "short_name": "Claire & Paul",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#FAF9F5",
+  "theme_color": "#FAF9F5",
+  "icons": [
+    { "src": "assets/images/apple-touch-icon.png", "sizes": "180x180", "type": "image/png" }
+  ]
+}

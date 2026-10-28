@@ -1,0 +1,43 @@
+// Places for the scrapbook map. Every trip photo must show BOTH Paul and Claire.
+// Visually review people and location before adding a metadata-free derivative.
+// Record the decision privately in PHOTO_SELECTIONS.md and data/place-photo-review.json.
+window.PLACES = [
+  { id: "fallbrook", name: "Fallbrook, CA", lon: -117.25, lat: 33.38, kind: "wedding",
+    note: "Where we'll say \"I do\" on March 7, 2027.", photo: "assets/places/fallbrook-together-2023.webp",
+    photoAlt: "Claire and Paul hugging in the gardens at Grand Tradition Estate" },
+  { id: "dallas", name: "Dallas, TX", lon: -96.80, lat: 32.78, kind: "been",
+    note: "Our second home.", photo: "assets/places/dallas.webp" },
+  { id: "houston", name: "Houston, TX", lon: -95.37, lat: 29.76, kind: "been", note: "Boba by the Galleria.", photo: "assets/places/houston.webp" },
+  { id: "austin", name: "Austin, TX", lon: -97.74, lat: 30.27, kind: "been", note: "A trip to Austin.", photo: "assets/places/austin.webp" },
+  { id: "disneyworld", name: "Disney World, FL", lon: -81.56, lat: 28.39, kind: "been", note: "Exploring EPCOT together.", photo: "assets/places/disneyworld-epcot-together-2024.webp",
+    photoAlt: "Claire and Paul beneath the torii gate at EPCOT, with Spaceship Earth across the lagoon", photoFrame: "postcard" },
+  { id: "disneyland", name: "Disneyland, CA", lon: -117.92, lat: 33.81, kind: "been", note: "A day at Disneyland.", photo: "assets/places/disneyland.webp" },
+  { id: "albuquerque", name: "Albuquerque, NM", lon: -106.65, lat: 35.08, kind: "been", note: "A New Mexico trip.", photo: "assets/places/albuquerque-together-2025.webp",
+    photoAlt: "Claire and Paul in costume with two giant gingerbread characters in Albuquerque" },
+  { id: "vegas", name: "Las Vegas, NV", lon: -115.14, lat: 36.17, kind: "been", note: "Three trips to EDC.", photo: "assets/places/vegas.webp" },
+  { id: "coachella", name: "Coachella, CA", lon: -116.22, lat: 33.72, kind: "been", note: "Music in the desert.", photo: "assets/places/coachella-together-2023.webp",
+    photoAlt: "Claire and Paul sitting together on the festival lawn at Coachella" },
+  { id: "bigbear", name: "Big Bear, CA", lon: -116.91, lat: 34.24, kind: "been", note: "A day in the snow.", photo: "assets/places/bigbear-2021.webp" },
+  { id: "sandiego", name: "San Diego, CA", lon: -117.16, lat: 32.72, kind: "been", note: "Weekends in San Diego.", photo: "assets/places/sandiego.webp" },
+  { id: "irvine", name: "Irvine, CA", lon: -117.79, lat: 33.68, kind: "been", note: "Weekends in Irvine." },
+  { id: "huntington", name: "Huntington Gardens, CA", lon: -118.114, lat: 34.128, kind: "been",
+    note: "A garden afternoon in San Marino.", photo: "assets/places/huntington-together-2021.webp",
+    photoAlt: "Claire and Paul together on a sunny garden path at Huntington Gardens" },
+  { id: "magicmountain", name: "Six Flags Magic Mountain, CA", lon: -118.596, lat: 34.425, kind: "been",
+    note: "Roller coasters and a day out together.", photo: "assets/places/magicmountain-goliath-2022.webp",
+    photoAlt: "Claire and Paul screaming in the front row of the Goliath roller coaster" },
+  { id: "universalhollywood", name: "Universal Studios Hollywood, CA", lon: -118.353, lat: 34.138, kind: "been",
+    note: "Many park days together.", photo: "assets/places/universal-hollywood-together-2021.webp",
+    photoAlt: "Claire and Paul together by the fountain at Universal Studios Hollywood" },
+  { id: "seaworldsandiego", name: "SeaWorld San Diego, CA", lon: -117.226, lat: 32.765, kind: "been",
+    note: "A place we keep coming back to.", photo: "assets/places/seaworld-san-diego-together-2023.webp",
+    photoAlt: "Claire and Paul taking a sunny afternoon selfie at SeaWorld San Diego" },
+  { id: "dc", name: "Washington, DC", lon: -77.04, lat: 38.91, kind: "soon", note: "Coming up this November, for SfN." }
+];
+
+window.ABROAD = [
+  { id: "taiwan", name: "Taiwan", kind: "been", note: "Visiting family together.", photo: "assets/places/taiwan-together-2022.webp",
+    photoAlt: "Claire and Paul smiling together at an outdoor nighttime celebration in Taiwan" },
+  { id: "korea", name: "Korea", kind: "been", note: "We've been, and we're going back soon!", photo: "assets/places/korea.webp" },
+  { id: "japan", name: "Japan", kind: "soon", note: "Next on the list!" }
+];

@@ -1,0 +1,394 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Claire &amp; Paul, March 7, 2027</title>
+  <meta name="description" content="Claire and Paul are getting married on Sunday, March 7, 2027 at Beverly Mansion, Grand Tradition Estate &amp; Gardens, Fallbrook, California.">
+  <meta property="og:title" content="Claire &amp; Paul">
+  <meta property="og:description" content="Sunday, March 7, 2027, Beverly Mansion, Fallbrook, California">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://claireandpaul.me/">
+  <meta property="og:image" content="https://claireandpaul.me/assets/images/share-card.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Bubu and Dudu as bride and groom beside the names Claire and Paul, Sunday, March 7, 2027">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="theme-color" content="#FAF9F5">
+  <link rel="icon" type="image/png" href="assets/images/favicon.png">
+  <link rel="apple-touch-icon" href="assets/images/apple-touch-icon.png">
+  <link rel="manifest" href="manifest.webmanifest">
+  <meta name="apple-mobile-web-app-title" content="Claire & Paul">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Pinyon+Script&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/site.css?v=20261028-garden">
+  <script>document.documentElement.classList.add("js")</script>
+</head>
+<body>
+
+  <div class="envelope-intro" id="envelope-intro" hidden>
+    <button type="button" class="envelope" id="envelope" aria-label="Open the invitation">
+      <span class="env-back"></span>
+      <span class="env-letter">
+        <span class="env-letter-names">Claire <em>&amp;</em> Paul</span>
+        <span class="env-letter-date">March 7, 2027</span>
+      </span>
+      <span class="env-front"></span>
+      <span class="env-flap"></span>
+      <span class="env-seal">C<em>&amp;</em>P</span>
+    </button>
+    <p class="env-hint">Tap to open</p>
+    <button type="button" class="env-skip" id="envelope-skip">Skip</button>
+  </div>
+
+  <div class="garden garden-left" aria-hidden="true"><img src="assets/images/garden-left.svg" alt=""></div>
+  <div class="garden garden-right" aria-hidden="true"><img src="assets/images/garden-right.svg" alt=""></div>
+
+  <header class="masthead">
+    <!-- The beach where Claire draws our heart in the sand when the tide goes out -->
+    <svg class="shore" viewBox="0 0 1200 240" preserveAspectRatio="none" aria-hidden="true">
+      <defs>
+        <linearGradient id="sand" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stop-color="#E4D5BB"/><stop offset=".45" stop-color="#EEE3CD"/><stop offset="1" stop-color="#FAF9F5"/>
+        </linearGradient>
+        <filter id="grain"><feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="2" seed="7"/><feColorMatrix values="0 0 0 0 .45  0 0 0 0 .36  0 0 0 0 .25  0 0 0 .5 0"/></filter>
+      </defs>
+      <rect width="1200" height="240" fill="url(#sand)"/>
+      <rect width="1200" height="240" filter="url(#grain)" opacity=".18"/>
+    </svg>
+    <div class="ocean" id="ocean">
+      <div class="tide">
+        <div class="sea"><div class="glints"></div><div class="visitors" id="ocean-visitors"></div></div>
+        <div class="swell swell-back"></div>
+        <div class="swell swell-front"></div>
+      </div>
+      <div class="wet-sand"></div>
+      <div class="shoreline" id="ocean-shoreline"></div>
+      <button type="button" class="ocean-toggle" id="ocean-toggle" hidden>
+        <svg class="i-pause" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14M16 5v14"/></svg>
+        <svg class="i-play" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5l11 7-11 7z"/></svg>
+      </button>
+      <p class="sr-only" id="ocean-live" aria-live="polite"></p>
+    </div>
+    <a href="#home" class="monogram" data-tab="home" aria-label="Claire and Paul, home"><svg viewBox="0 0 64 56" aria-hidden="true"><path class="groove-light" d="M32 17C32 10 25 6 18.5 6 10.5 6 5 12 5 19.5 5 31.5 19 41 32 51 45 41 59 31.5 59 19.5 59 12 53.5 6 45.5 6 39 6 32 10 32 17Z"/><path class="groove" d="M32 17C32 10 25 6 18.5 6 10.5 6 5 12 5 19.5 5 31.5 19 41 32 51 45 41 59 31.5 59 19.5 59 12 53.5 6 45.5 6 39 6 32 10 32 17Z"/><text class="groove-light" x="32" y="32.6">C + P</text><text x="32" y="32">C + P</text></svg></a>
+    <nav class="tabs" aria-label="Pages">
+      <button type="button" class="tab-bears" id="tab-bears" aria-label="Bubu and Dudu. Tap them for a heart.">
+        <span class="bear-pose">
+          <img class="frame frame-neutral" src="assets/images/bears-neutral.webp" alt="">
+          <img class="frame frame-blink" src="assets/images/bears-blink.webp" alt="">
+          <img class="frame frame-smile" src="assets/images/bears-smile.webp" alt="">
+        </span>
+      </button>
+      <a href="#home" data-tab="home">Home</a>
+      <a href="#story" data-tab="story">Our Story</a>
+      <a href="#places" data-tab="places">Places</a>
+      <a href="#photos" data-tab="photos">Photos</a>
+      <a href="#travel" data-tab="travel">Travel</a>
+      <a href="#qa" data-tab="qa">Q&amp;A</a>
+      <a href="#registry" data-tab="registry">Registry</a>
+      <a href="#rsvp" data-tab="rsvp" class="tab-rsvp">RSVP</a>
+    </nav>
+  </header>
+
+  <main>
+
+    <!-- HOME -->
+    <section id="home" class="page" data-page="home" aria-label="Home">
+      <div class="hero">
+        <figure class="couple">
+          <img src="assets/images/couple-cutout.webp" alt="Claire holding her bouquet next to Paul, both smiling" width="762" height="900">
+        </figure>
+        <h1 class="names"><span>Claire</span> <span class="plus">+</span> <span>Paul</span></h1>
+        <p class="date">Sunday, March 7, 2027</p>
+        <p class="place">Beverly Mansion at Grand Tradition Estate &amp;&nbsp;Gardens<br>Fallbrook, California</p>
+        <p class="arrival">Ceremony &amp; celebration · 4–9 PM<br><span>Please arrive by 3:45 PM. All times are Pacific Time.</span></p>
+        <div class="countdown" aria-live="off">
+          <div><span id="cd-days">—</span><small>days</small></div>
+          <div><span id="cd-hours">—</span><small>hours</small></div>
+          <div><span id="cd-mins">—</span><small>minutes</small></div>
+          <div><span id="cd-secs">—</span><small>seconds</small></div>
+        </div>
+        <div class="actions">
+          <a href="#rsvp" data-tab="rsvp" class="btn btn-solid">RSVP</a>
+          <button type="button" class="btn btn-quiet" id="add-calendar-btn">Add to calendar</button>
+        </div>
+        <button type="button" class="game-link" id="game-btn">Play: help Dudu catch Bubu's hearts</button>
+      </div>
+
+      <figure class="feature-photo">
+        <img src="assets/images/photos/lighthouse-warm.webp" alt="Claire and Paul smiling on the cliffs by the lighthouse" class="zoomable">
+      </figure>
+
+      <div class="block">
+        <h2>The big day</h2>
+        <p class="lede">Our planned schedule for Sunday, March 7.<br>All times are Pacific Time.</p>
+        <ol class="schedule" id="schedule">
+          <li><time>3:45</time><div><h3>Come on in!</h3><p>Arrive by 3:45 so you can park and get settled.</p></div></li>
+          <li><time>4:00</time><div><h3>We say "I do"</h3><p>The ceremony, in the Compass Garden.</p></div></li>
+          <li><time>4:45</time><div><h3>Cheers!</h3><p>Cocktails from 4:45–5:45 PM in the outdoor courtyard at the front of Beverly Mansion.</p></div></li>
+          <li><time>6:00</time><div><h3>Dinner time</h3><p>A buffet, so come hungry.</p></div></li>
+          <li><time>7:15</time><div><h3>Toasts &amp; our first dance</h3></div></li>
+          <li><time>7:45</time><div><h3>Everybody dance!~</h3></div></li>
+          <li><time>9:00</time><div><h3>Send off</h3><p>At 9 PM.</p></div></li>
+        </ol>
+      </div>
+
+      <div class="painting" role="img" aria-label="A watercolor of the ceremony garden at Grand Tradition Estate">
+        <p>See you in the garden.</p>
+      </div>
+    </section>
+
+    <!-- OUR STORY -->
+    <section id="story" class="page" data-page="story" aria-label="Our story" hidden>
+      <div class="block story">
+        <h2>How it started</h2>
+        <figure class="story-photo"><img src="assets/images/photos/early-days-2021.webp" alt="Claire and Paul smiling cheek to cheek in a car during the early days of their relationship" class="zoomable" loading="lazy"><figcaption class="photo-credit">Us in 2021.</figcaption></figure>
+        <p>We met on Hinge in February 2021. Paul was home in Texas taking care of his mom through the pandemic while working on his MPH, and Claire was in her last few years of college.</p>
+        <p>After a few weeks of talking, Paul flew Claire out to Texas, and Claire took a leap of faith and came to see him for a weekend. The rest is history.</p>
+        <p class="pull">Together since February 21, 2021</p>
+        <p>It's been more than five years, and we've been through everything together. When Paul's beautiful mom, Wendy, passed away after her brave battle with stage IV lung cancer, Claire was right there.</p>
+        <p>There have been plenty of adventures too: Disney World and Disneyland, Dallas (our second home), Houston and Austin, Albuquerque, three EDCs in Las Vegas, Coachella, Big Bear, Korea, and more San Diego and Irvine weekends than we can count. <a href="#places" data-tab="places">See them on the map.</a></p>
+        <p>We love the Lord, and we're so grateful to walk together in faith as partners for life.</p>
+        <figure class="story-photo"><img src="assets/images/photos/heart.webp" alt="Claire and Paul making a heart with their arms against the sunset" class="zoomable"></figure>
+      </div>
+    </section>
+
+    <!-- PLACES -->
+    <section id="places" class="page" data-page="places" aria-label="Places we've been" hidden>
+      <div class="block block-wide">
+        <h2>Places we've been</h2>
+        <p class="lede">Tap a pin and Bubu and Dudu will take you there.</p>
+        <div class="map-wrap">
+          <svg id="us-map" class="us-map" viewBox="0 0 975 610" role="group" aria-label="Map of places we've visited">
+            <g id="us-states"></g>
+            <g id="us-trail"></g>
+            <g id="us-pins"></g>
+            <image id="map-bears" href="assets/images/bears-neutral.webp" width="60" height="39" x="-200" y="-200"></image>
+          </svg>
+        </div>
+        <p class="tour-row"><button type="button" class="btn btn-quiet" id="tour-btn">Take the tour</button></p>
+        <div class="abroad" id="abroad" aria-label="Abroad"></div>
+        <article class="place-card" id="place-card" aria-live="polite">
+          <p class="place-card-hint">Pick a place on the map.</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- PHOTOS -->
+    <section id="photos" class="page" data-page="photos" aria-label="Photos" hidden>
+      <div class="block block-wide">
+        <h2>The day he asked</h2>
+        <div class="gallery">
+          <img src="assets/images/photos/proposal.webp" alt="Paul on one knee as Claire holds her bouquet" class="zoomable wide">
+          <img src="assets/images/photos/ring.webp" alt="Claire's engagement ring" class="zoomable">
+          <img src="assets/images/photos/hug.webp" alt="Claire hugging Paul by the lighthouse" class="zoomable">
+          <img src="assets/images/photos/cheek.webp" alt="Claire touching Paul's cheek at sunset" class="zoomable">
+          <img src="assets/images/photos/golden.webp" alt="Claire and Paul in the golden light" class="zoomable">
+          <img src="assets/images/photos/bouquet.webp" alt="Claire's bouquet waiting under a tree by the ocean" class="zoomable wide">
+        </div>
+        <p class="photo-credit">Engagement photographs by Joe Chang.</p>
+      </div>
+    </section>
+
+    <!-- TRAVEL -->
+    <section id="travel" class="page" data-page="travel" aria-label="Travel" hidden>
+      <div class="block">
+        <h2>Getting there</h2>
+        <address class="venue">
+          <strong>Beverly Mansion</strong><br>
+          Grand Tradition Estate &amp; Gardens<br>
+          220 Grand Tradition Way, Fallbrook, CA 92028
+        </address>
+        <p class="links">
+          <a href="https://maps.google.com/?q=Grand+Tradition+Estate+%26+Gardens,+220+Grand+Tradition+Way,+Fallbrook,+CA+92028" target="_blank" rel="noopener">Google Maps</a>
+          <a href="https://maps.apple.com/?q=Grand+Tradition+Estate+%26+Gardens&amp;address=220+Grand+Tradition+Way,+Fallbrook,+CA+92028" target="_blank" rel="noopener">Apple Maps</a>
+        </p>
+        <p class="note">Parking is free on site.</p>
+
+        <h3 class="sub">Flying in</h3>
+        <p>Fallbrook is in North San Diego County, between San Diego and Orange County. San Diego (SAN), John Wayne (SNA), Ontario (ONT), and Los Angeles (LAX) are airport options. Compare flights with the drive to Fallbrook in mind, and allow extra time for traffic.</p>
+        <p>We'd recommend renting a car. If you're getting a ride, book your ride home ahead of time, since the venue is out in the hills.</p>
+
+        <h3 class="sub">Where to stay</h3>
+        <dl class="stays">
+          <div><dt>Temecula</dt><dd>A nearby option, about 20 minutes away. Old Town is fun to walk around, and wine country is right there.</dd></div>
+          <div><dt>Oceanside &amp; Carlsbad</dt><dd>About half an hour away, right on the beach. Great if you want ocean mornings.</dd></div>
+          <div><dt>Irvine</dt><dd>About an hour north, and easy if you fly into John Wayne. Clean, central, and full of good food.</dd></div>
+          <div><dt>San Diego</dt><dd>About an hour south. Pick this one if you want to make a whole trip of it.</dd></div>
+        </dl>
+        <p class="note">These drive times are approximate and depend on traffic and your exact location.</p>
+
+        <h3 class="sub">If you have an extra day</h3>
+        <div class="recs">
+          <div>
+            <h4>San Diego</h4>
+            <ul>
+              <li>Say hi to the sea lions at La Jolla Cove</li>
+              <li>Walk around Balboa Park</li>
+              <li>Dinner in Little Italy</li>
+              <li>Eat your way down Convoy Street</li>
+            </ul>
+          </div>
+          <div>
+            <h4>Irvine &amp; Orange County</h4>
+            <ul>
+              <li>Food at Diamond Jamboree</li>
+              <li>The Irvine Spectrum and its Ferris wheel</li>
+              <li>Sunset at Laguna Beach or Crystal Cove</li>
+              <li>A day at Disneyland (we approve)</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Q&A -->
+    <section id="qa" class="page" data-page="qa" aria-label="Questions" hidden>
+      <div class="block">
+        <h2>Questions?</h2>
+        <details>
+          <summary>When should I get there?</summary>
+          <p>Please arrive by 3:45 PM. The ceremony starts at 4 PM in the Compass Garden, and our send-off is at 9 PM. All times are Pacific Time.</p>
+        </details>
+        <details>
+          <summary>Where do I park?</summary>
+          <p>Right at the venue. Parking is free on site.</p>
+        </details>
+        <details>
+          <summary>Can I bring a plus-one?</summary>
+          <p>Have a plus-one in mind? Message Paul or Claire and we'll check if there's room!</p>
+        </details>
+        <details>
+          <summary>When do you need my RSVP?</summary>
+          <p>By January 1, 2027. You can send it from the RSVP tab.</p>
+        </details>
+        <details>
+          <summary>What's for dinner?</summary>
+          <p>A buffet. Please include dietary needs or allergies with your RSVP so we can discuss accommodations with the venue.</p>
+        </details>
+      </div>
+    </section>
+
+    <!-- REGISTRY -->
+    <section id="registry" class="page" data-page="registry" aria-label="Registry" hidden>
+      <div class="block registry">
+        <h2>Registry</h2>
+        <p class="lede">Having you there is the best gift.</p>
+        <p>If you'd like to give something anyway, there will be a card box at the reception, or you can send it on Venmo to Claire.</p>
+        <a class="btn btn-solid" href="https://venmo.com/u/claire-kim-13" target="_blank" rel="noopener">Venmo @claire-kim-13</a>
+      </div>
+    </section>
+
+    <!-- RSVP -->
+    <section id="rsvp" class="page" data-page="rsvp" aria-label="RSVP" hidden>
+      <div class="block rsvp">
+        <h2>RSVP</h2>
+        <p class="lede">Please let us know by January 1, 2027.</p>
+        <p class="hint" id="rsvp-resume" hidden>You have a saved reply in this browser tab. You can update it below.</p>
+
+        <form id="rsvp-form" class="rsvp-form">
+          <label class="rsvp-honeypot" aria-hidden="true">Leave this field empty
+            <input type="text" id="rsvp-website" name="website" tabindex="-1" autocomplete="off">
+          </label>
+          <label class="field">Your name
+            <input type="text" id="rsvp-name" required maxlength="120" autocomplete="name" placeholder="First and last name">
+          </label>
+          <fieldset class="choice">
+            <legend>Will you be there?</legend>
+            <label><input type="radio" name="attendance" value="attending" checked> Yes, I'll be there!</label>
+            <label><input type="radio" name="attendance" value="declined"> Sorry, I can't make it</label>
+          </fieldset>
+          <div id="attending-fields">
+            <label class="field">How many in your party, including you?
+              <select id="rsvp-count">
+                <option value="1">Just me</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+              </select>
+              <span class="hint">Only the people named on your invitation. Plus-ones: message us first!</span>
+            </label>
+            <label class="field">Names of everyone coming with you
+              <input type="text" id="rsvp-party" maxlength="600">
+            </label>
+            <label class="field">Allergies or dietary needs
+              <input type="text" id="rsvp-dietary" maxlength="500">
+            </label>
+            <label class="field">A song that will get you dancing
+              <input type="text" id="rsvp-song" maxlength="200">
+            </label>
+          </div>
+          <label class="field">Phone or email, in case we need to reach you
+            <input type="text" id="rsvp-contact" required minlength="5" maxlength="120" autocomplete="email">
+          </label>
+          <label class="field">A note for us
+            <textarea id="rsvp-message" rows="3" maxlength="1000"></textarea>
+          </label>
+          <p id="rsvp-error" class="error" role="alert" hidden></p>
+          <button type="submit" class="btn btn-solid" id="submit-rsvp-btn">Send RSVP</button>
+          <p class="hint">You'll see a thank-you once your reply is saved. We use your contact details and dietary notes for wedding planning.</p>
+        </form>
+
+        <div id="rsvp-done" class="confirm" hidden>
+          <img class="confirm-bears" src="assets/images/bears-smile.webp" alt="" width="1189" height="759">
+          <p class="confirm-title">Thank you!</p>
+          <p id="confirm-message-text"></p>
+          <p class="hint">You can update your reply in this browser tab. For changes from another device, message Paul or Claire.</p>
+          <div class="sheet-actions">
+            <button type="button" class="btn btn-quiet" id="rsvp-edit-btn">Update this RSVP</button>
+            <button type="button" class="btn btn-quiet" id="rsvp-another-btn">Reply for another invitation</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="foot">
+    <img class="foot-bears" src="assets/images/bears-smile.webp" alt="" width="1189" height="759" loading="lazy">
+    <p class="foot-names">Claire <span class="plus">+</span> Paul</p>
+    <p class="foot-date">March 7, 2027</p>
+  </footer>
+
+  <dialog id="calendar-modal" class="sheet">
+    <h2>Add to calendar</h2>
+    <p>Sunday, March 7, 2027, 3:45 to 9:00 PM<br>Beverly Mansion, Grand Tradition Estate &amp; Gardens, Fallbrook</p>
+    <div class="sheet-actions">
+      <button type="button" class="btn btn-solid" id="download-ics-btn">Apple or Outlook (.ics)</button>
+      <a class="btn btn-quiet" target="_blank" rel="noopener" href="https://calendar.google.com/calendar/render?action=TEMPLATE&amp;text=Claire+%26+Paul%27s+wedding&amp;dates=20270307T234500Z/20270308T050000Z&amp;location=Beverly+Mansion,+Grand+Tradition+Estate+%26+Gardens,+220+Grand+Tradition+Way,+Fallbrook,+CA+92028&amp;details=Arrive+by+3:45.+Ceremony+at+4:00+in+the+Compass+Garden.+Free+parking+on+site.">Google Calendar</a>
+    </div>
+    <button type="button" class="close" data-close aria-label="Close">×</button>
+  </dialog>
+
+  <dialog id="lightbox-modal" class="lightbox">
+    <img id="lightbox-image" alt="">
+    <button type="button" class="lb-nav lb-prev" id="lightbox-prev" aria-label="Previous photo">‹</button>
+    <button type="button" class="lb-nav lb-next" id="lightbox-next" aria-label="Next photo">›</button>
+    <p class="lb-count" id="lightbox-count"></p>
+    <button type="button" class="close" data-close aria-label="Close">×</button>
+  </dialog>
+
+  <dialog id="game-modal" class="sheet game">
+    <div class="game-hud"><span>Hearts <strong id="game-score">0</strong></span><span><strong id="game-time">30</strong>s</span></div>
+    <div class="game-stage">
+      <canvas id="game-canvas" aria-label="Catch the hearts game"></canvas>
+      <div class="game-overlay" id="game-overlay"></div>
+    </div>
+    <button type="button" class="close" data-close aria-label="Close">×</button>
+  </dialog>
+
+  <div id="toast-container" class="toasts" aria-live="polite"></div>
+
+  <script src="https://cdn.jsdelivr.net/npm/d3-array@3.2.4/dist/d3-array.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/d3-geo@3.1.1/dist/d3-geo.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/topojson-client@3.1.0/dist/topojson-client.min.js"></script>
+  <script src="assets/places.js?v=20261028-garden"></script>
+  <script src="assets/rsvp.js?v=20261023-rsvp2" defer></script>
+  <script src="assets/site.js?v=20261028-garden" defer></script>
+  <script src="assets/game.js" defer></script>
+  <script src="assets/ocean.js?v=20261024-ocean2" defer></script>
+</body>
+</html>
