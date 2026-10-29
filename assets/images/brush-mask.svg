@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="300" height="100" viewBox="0 0 300 100" preserveAspectRatio="none">
+  <!-- Opaque on the left, transparent on the right, with a ragged brush edge between.
+       Sliding this mask across a photo paints it in. -->
+  <defs>
+    <filter id="rough" x="-10%" y="-10%" width="120%" height="120%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.035 0.22" numOctaves="3" seed="4"/>
+      <feDisplacementMap in="SourceGraphic" scale="28"/>
+    </filter>
+  </defs>
+  <g filter="url(#rough)" fill="#000">
+    <rect x="-20" y="-10" width="150" height="120"/>
+    <rect x="120" y="4" width="34" height="14" rx="7"/>
+    <rect x="120" y="24" width="22" height="12" rx="6"/>
+    <rect x="120" y="44" width="40" height="13" rx="6"/>
+    <rect x="120" y="64" width="18" height="12" rx="6"/>
+    <rect x="120" y="82" width="30" height="14" rx="7"/>
+  </g>
+</svg>
