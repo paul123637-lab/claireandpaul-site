@@ -252,7 +252,9 @@ em { font-style: italic; }
   display: grid; place-items: center;
 }
 .painting::before { content: ""; position: absolute; inset: 0; background: linear-gradient(var(--paper), rgba(250,249,245,.15) 35%, rgba(250,249,245,.15) 70%, var(--paper)); }
-.painting p { position: relative; font-size: clamp(2rem, 5vw, 3rem); font-style: italic; color: var(--paper); text-shadow: 0 2px 18px rgba(34,49,61,.55); margin: 0; }
+.painting { min-height: clamp(420px, 56vw, 640px); }
+.painting-canvas { position: absolute; inset: 0; pointer-events: none; }
+.painting::before { z-index: 1; background: linear-gradient(var(--paper), rgba(250,249,245,0) 18%, rgba(250,249,245,0) 82%, var(--paper)); }
 
 /* Story */
 .story p { margin: 0 0 1.2rem; }
