@@ -270,7 +270,6 @@
 
   let mapDrawn = false;
   let projection = null;
-  const KIND = { been: "Been there together", soon: "Coming up next", wedding: "Our wedding!" };
 
   function placeCard(p) {
     const card = $("place-card");
@@ -279,7 +278,7 @@
     // photoFrame "postcard" crops the card view to 4:3; the lightbox still shows the whole photo
     const frame = p.photoFrame === "postcard" ? " postcard" : "";
     const photo = p.photo ? `<img src="${esc(p.photo)}" alt="${esc(alt)}" class="zoomable${frame}" tabindex="0" role="button" aria-haspopup="dialog" loading="lazy">` : "";
-    card.innerHTML = `<h3>${esc(p.name)}</h3><p class="when">${KIND[p.kind]}</p><p>${esc(p.note)}</p>${photo}`;
+    card.innerHTML = `<h3>${esc(p.name)}</h3>${photo}`;
     card.style.animation = "none"; void card.offsetWidth; card.style.animation = "";
   }
 
