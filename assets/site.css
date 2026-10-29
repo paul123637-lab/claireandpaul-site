@@ -293,7 +293,6 @@ em { font-style: italic; }
 }
 @keyframes card-in { from { opacity: 0; transform: translateY(10px) scale(.98); } to { opacity: 1; transform: none; } }
 .place-card h3 { font-size: 1.8rem; font-weight: 400; }
-.place-card .when { font-style: italic; color: var(--dusty-deep); margin: .1rem 0 .6rem; }
 .place-card p { margin: 0; }
 .place-card img { margin: 1rem auto 0; border-radius: 10px; max-height: 320px; width: auto; }
 .place-card img.postcard { width: 100%; max-height: none; aspect-ratio: 4 / 3; object-fit: cover; object-position: 50% 88%; }

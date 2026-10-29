@@ -6,8 +6,10 @@ window.PLACES = [
     note: "Where we'll say \"I do\" on March 7, 2027.", photo: "assets/places/fallbrook-together-2023.webp",
     photoAlt: "Claire and Paul hugging in the gardens at Grand Tradition Estate" },
   { id: "dallas", name: "Dallas, TX", lon: -96.80, lat: 32.78, kind: "been",
-    note: "Our second home.", photo: "assets/places/dallas.webp" },
-  { id: "houston", name: "Houston, TX", lon: -95.37, lat: 29.76, kind: "been", note: "Boba by the Galleria.", photo: "assets/places/houston.webp" },
+    note: "Our second home.", photo: "assets/places/dallas-color-me-mine-2023.webp",
+    photoAlt: "Claire painting a ceramic figure at Color Me Mine in Plano" },
+  { id: "houston", name: "Houston, TX", lon: -95.37, lat: 29.76, kind: "been", note: "Boba by the Galleria.", photo: "assets/places/houston-galleria-together-2022.webp",
+    photoAlt: "Claire and Paul with boba outside the Galleria in Houston" },
   { id: "austin", name: "Austin, TX", lon: -97.74, lat: 30.27, kind: "been", note: "A trip to Austin.", photo: "assets/places/austin.webp" },
   { id: "disneyworld", name: "Disney World, FL", lon: -81.56, lat: 28.39, kind: "been", note: "Exploring EPCOT together.", photo: "assets/places/disneyworld-epcot-together-2024.webp",
     photoAlt: "Claire and Paul beneath the torii gate at EPCOT, with Spaceship Earth across the lagoon", photoFrame: "postcard" },
@@ -48,12 +50,18 @@ window.PLACES = [
   { id: "aquariumpacific", name: "Aquarium of the Pacific, CA", lon: -118.197, lat: 33.762, kind: "been",
     note: "Annual members, so we kept coming back.", photo: "assets/places/aquarium-pacific-jellyfish-2022.webp",
     photoAlt: "Claire in a black beanie watching sea nettle jellyfish at the Aquarium of the Pacific" },
+  { id: "koreatown", name: "Koreatown, LA", lon: -118.300, lat: 34.061, kind: "been",
+    note: "Korean BBQ in Koreatown.", photo: "assets/places/koreatown-together-2022.webp",
+    photoAlt: "Claire and Paul at a Korean restaurant table in Koreatown" },
+  { id: "escapehalloween", name: "San Bernardino, CA", lon: -117.272, lat: 34.087, kind: "been",
+    note: "Escape Halloween, Claire's first rave.", photo: "assets/places/escape-halloween-together-2021.webp",
+    photoAlt: "Claire and Paul in costume at Escape Halloween in San Bernardino" },
   { id: "dc", name: "Washington, DC", lon: -77.04, lat: 38.91, kind: "soon", note: "Coming up this November, for SfN." }
 ];
 
 window.ABROAD = [
-  { id: "taiwan", name: "Taiwan", kind: "been", note: "Visiting family together.", photo: "assets/places/taiwan-together-2022.webp",
-    photoAlt: "Claire and Paul smiling together at an outdoor nighttime celebration in Taiwan" },
+  { id: "taiwan", name: "Taiwan", kind: "been", note: "Visiting family together.", photo: "assets/places/taiwan-tamsui-2022.webp",
+    photoAlt: "A paddle-wheel riverboat on the Tamsui River in Taiwan" },
   { id: "korea", name: "Korea", kind: "been", note: "We've been, and we're going back soon!", photo: "assets/places/korea.webp" },
   { id: "japan", name: "Japan", kind: "soon", note: "Next on the list!" }
 ];

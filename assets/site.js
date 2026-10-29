@@ -432,7 +432,7 @@
     });
     const legend = document.createElement("p");
     legend.className = "legend";
-    legend.innerHTML = '<span><i></i>Been there</span><span><i class="soon"></i>Coming up</span><span><i class="wedding"></i>Our wedding</span>';
+    legend.innerHTML = '<span><i></i>Visited</span><span><i class="soon"></i>Next</span><span><i class="wedding"></i>Wedding</span>';
     abroad.after(legend);
     $("tour-btn").addEventListener("click", () => { if (touring) { touring = false; } else tour(); });
     const home = window.PLACES.find(p => p.kind === "wedding");
