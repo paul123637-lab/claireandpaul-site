@@ -610,3 +610,23 @@ main, .foot { position: relative; z-index: 2; }
   .brush-pending path { stroke-dashoffset: 0; transition: none; }
   .sparkle { animation: none; }
 }
+.constellation line { stroke: #C9A65A; stroke-width: 1.2; stroke-opacity: .55; stroke-dasharray: 1; stroke-dashoffset: 1; transition: stroke-dashoffset 1.2s var(--ease); }
+.constellation.painted line { stroke-dashoffset: 0; }
+.us-map .pin circle { animation: pin-glow 3.5s ease-in-out infinite; }
+.us-map .pin:nth-child(3n) circle { animation-delay: -1.2s; } .us-map .pin:nth-child(3n+1) circle { animation-delay: -2.3s; }
+@keyframes pin-glow { 50% { filter: drop-shadow(0 0 5px rgba(217,182,106,.95)); } }
+.trail-star { position: fixed; z-index: 50; width: 7px; height: 7px; margin: -3.5px 0 0 -3.5px; pointer-events: none;
+  background: #D9B66A; clip-path: polygon(50% 0, 62% 38%, 100% 50%, 62% 62%, 50% 100%, 38% 62%, 0 50%, 38% 38%);
+  animation: trail 0.9s ease-out forwards; }
+@keyframes trail { to { opacity: 0; transform: translate(var(--dx), 26px) scale(.3) rotate(90deg); } }
+
+/* The footer is night: the bears sit on a tiny planet under the stars */
+.foot { background: linear-gradient(var(--paper), #33476e 38%, #1c2849); color: #F4EEDD; position: relative; overflow: hidden; }
+.foot-names { color: #F4EEDD; }
+.foot-date { color: #C9D2E4; }
+.foot-bears { position: relative; z-index: 1; }
+.foot-planet { width: 190px; height: 62px; margin: -1.6rem auto 1.4rem; border-radius: 50% 50% 0 0 / 100% 100% 0 0;
+  background: radial-gradient(120% 140% at 35% 20%, #c9d6c0, #7f9b8f 55%, #4a647a); position: relative; }
+.foot-sky { position: absolute; inset: 0; pointer-events: none; }
+.foot-sky i { position: absolute; width: 3px; height: 3px; border-radius: 50%; background: #FFF4CF; animation: twinkle 3.5s ease-in-out infinite; }
+@media (prefers-reduced-motion: reduce) { .trail-star { display: none; } .constellation line { stroke-dashoffset: 0; transition: none; } .us-map .pin circle { animation: none; } }
