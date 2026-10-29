@@ -36,6 +36,18 @@ window.PLACES = [
   { id: "seaworldsandiego", name: "SeaWorld San Diego, CA", lon: -117.226, lat: 32.765, kind: "been",
     note: "A place we keep coming back to.", photo: "assets/places/seaworld-san-diego-together-2023.webp",
     photoAlt: "Claire and Paul taking a sunny afternoon selfie at SeaWorld San Diego" },
+  { id: "lubbock", name: "Lubbock, TX", lon: -101.855, lat: 33.578, kind: "been",
+    note: "Where Claire came to visit Paul.", photo: "assets/places/lubbock-together-2021.webp",
+    photoAlt: "Claire hugging Paul from behind at a restaurant in Lubbock" },
+  { id: "pointvicente", name: "Point Vicente, CA", lon: -118.411, lat: 33.742, kind: "been",
+    note: "Where Paul proposed!", photo: "assets/places/pointvicente-proposal-2025.webp",
+    photoAlt: "Claire holding her bouquet beside Paul at the ocean fence, with the Point Vicente lighthouse behind them" },
+  { id: "manhattanbeach", name: "Manhattan Beach, CA", lon: -118.410, lat: 33.885, kind: "been",
+    note: "Sunset on the sand.", photo: "assets/places/manhattan-beach-2021.webp",
+    photoAlt: "Claire leading Paul by the hand across Manhattan Beach" },
+  { id: "aquariumpacific", name: "Aquarium of the Pacific, CA", lon: -118.197, lat: 33.762, kind: "been",
+    note: "A day at the aquarium.", photo: "assets/places/aquarium-pacific-together-2021.webp",
+    photoAlt: "Claire and Paul in masks taking a selfie by an aquarium exhibit" },
   { id: "dc", name: "Washington, DC", lon: -77.04, lat: 38.91, kind: "soon", note: "Coming up this November, for SfN." }
 ];
 
