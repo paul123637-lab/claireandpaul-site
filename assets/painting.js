@@ -25,7 +25,7 @@
 
   let strokes = [], stars = [], planet = [];
   let backdrop = null;
-  let W = 0, H = 0, dpr = 1, fit = null, night = 0, visible = false, raf = 0;
+  let W = 0, H = 0, dpr = 1, fit = null, night = 0, sp = 0, visible = false, raf = 0;
   const IW = 715, IH = 490;
   // Night palette for the sky, light to deep
   const NIGHT = [[24, 38, 82], [38, 62, 118], [62, 96, 158], [228, 206, 120]];
@@ -113,9 +113,10 @@
       if (px < -10 || px > W + 10 || py < -10 || py > H + 10) continue;
       const nk = night * k.sky;
       // Starry swirl: sky strokes turn to follow a flowing field of eddies
-      const fx = k.u * 6 + time * 0.08, fy = k.v * 7;
+      // The eddies turn as you scroll, so the whole sky churns with the page
+      const fx = k.u * 6 + time * 0.12 + sp * 7, fy = k.v * 7 - sp * 3;
       const flow = Math.atan2(Math.cos(fx) * Math.sin(fy), Math.sin(fx + fy * 0.6)) + Math.PI / 2;
-      const wob = still ? 0 : Math.sin(time * 0.7 + k.phase) * 0.18;
+      const wob = still ? 0 : Math.sin(time * 0.9 + k.phase) * (0.18 + nk * 0.3);
       // Ground strokes lie down into long horizontal grass at night
       const lay = night * (1 - k.sky) * 0.8;
       const a = k.angle + (flow - k.angle) * nk + (0 - k.angle) * lay + wob;
@@ -125,7 +126,10 @@
       const gd = night * (1 - k.sky);
       ctx.strokeStyle = `rgb(${r * (1 - gd * 0.7) | 0},${g * (1 - gd * 0.6) | 0},${(b * (1 - gd * 0.5) + gd * 30) | 0})`;
       const dx = Math.cos(a) * l, dy = Math.sin(a) * l;
-      ctx.beginPath(); ctx.moveTo(px - dx, py - dy); ctx.lineTo(px + dx, py + dy); ctx.stroke();
+      // Night strokes ride along the flow instead of staying pinned in place
+      const ride = nk * base * 5 * Math.sin(time * 0.8 + k.phase + sp * 9);
+      const qx = px + Math.cos(a) * ride, qy = py + Math.sin(a) * ride;
+      ctx.beginPath(); ctx.moveTo(qx - dx, qy - dy); ctx.lineTo(qx + dx, qy + dy); ctx.stroke();
     }
 
     // Stars come out
@@ -165,12 +169,96 @@
     ctx.drawImage(couple, cxx - 406 * cs, feetY - 488 * cs, IW * cs, IH * cs);
   }
 
+  // Night falls over a long stretch of scrolling: it starts while the schedule is on
+  // screen and is complete once the painting is centred. The whole page follows.
+  const DAY = { paper: "#FAF9F5", "paper-deep": "#F2F0E8", ink: "#22313D", "ink-soft": "#55636F", dusty: "#5C8DAF", "dusty-deep": "#3F6683", mist: "#E6EEF4", line: "#DCE3E9", card: "#FFFFFF" };
+  const DARK = { paper: "#121a33", "paper-deep": "#18223f", ink: "#EEF0F6", "ink-soft": "#B6C1D6", dusty: "#8FB4D6", "dusty-deep": "#A9C6E4", mist: "#22315a", line: "#2f4068", card: "#1a2648" };
+  const hex = h => [1, 3, 5].map(i => parseInt(h.slice(i, i + 2), 16));
+  const root = document.documentElement;
+  let lastNight = -1;
   function measure() {
+    const shown = band.offsetParent !== null;
     const r = band.getBoundingClientRect(), vh = innerHeight;
-    // Day while the band rises into view; night as it reaches the top of the screen
-    const p = (vh - r.top) / (vh + r.height);
-    night = smooth(0.3, 0.58, p);
+    const start = vh * 2.4, end = (vh - r.height) / 2;
+    sp = shown ? clamp((start - r.top) / (start - end), 0, 1.4) : 0;
+    night = shown ? smooth(0, 1, sp) : 0;
+    if (Math.abs(night - lastNight) < 0.004) return;
+    lastNight = night;
+    for (const k in DAY) {
+      const a = hex(DAY[k]), b = hex(DARK[k]);
+      root.style.setProperty("--" + k, `rgb(${a.map((v, i) => Math.round(v + (b[i] - v) * night)).join(",")})`);
+    }
+    root.style.setProperty("--night", night.toFixed(3));
+    root.classList.toggle("is-night", night > 0.5);
+    sky.style.opacity = night.toFixed(3);
+    if (night > 0.01 && !skyRaf && !still) skyRaf = requestAnimationFrame(skyLoop);
+    if (still) drawSky(0);
   }
+
+  // ---------- A full-screen night sky behind the page ----------
+  const sky = document.createElement("canvas");
+  sky.className = "night-sky";
+  sky.setAttribute("aria-hidden", "true");
+  document.body.prepend(sky);
+  const sx = sky.getContext("2d");
+  const skyStars = Array.from({ length: 140 }, () => ({ x: rand(), y: rand(), r: 0.4 + rand() * 1.4, ph: rand() * 6, big: rand() < 0.12 }));
+  let shoot = null, nextShoot = 0, skyRaf = 0;
+  function sizeSky() { sky.width = innerWidth * dpr; sky.height = innerHeight * dpr; }
+  function drawSky(t) {
+    const w = innerWidth, h = innerHeight, time = t / 1000;
+    sx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    sx.clearRect(0, 0, w, h);
+    // Stars drift slowly upward as you scroll, like the sky turning
+    const drift = (scrollY * 0.05) % h;
+    for (const st of skyStars) {
+      const y = (st.y * h - drift + h) % h, x = st.x * w;
+      const tw = 0.35 + 0.65 * Math.abs(Math.sin(time * (st.big ? 0.9 : 1.6) + st.ph));
+      sx.fillStyle = `rgba(255,246,214,${tw})`;
+      if (st.big) {
+        const R = 2.6 + st.r;
+        sx.beginPath();
+        for (let q = 0; q < 8; q++) { const rr = q % 2 ? R * 0.3 : R * 1.6, a = q * Math.PI / 4 + time * 0.2; sx.lineTo(x + Math.cos(a) * rr, y + Math.sin(a) * rr); }
+        sx.fill();
+      } else { sx.beginPath(); sx.arc(x, y, st.r, 0, 7); sx.fill(); }
+    }
+    // A crescent moon with a soft glow
+    const mx = w * 0.84, my = h * 0.16, mr = Math.min(42, w * 0.06);
+    const glow = sx.createRadialGradient(mx, my, mr * 0.6, mx, my, mr * 3.2);
+    glow.addColorStop(0, "rgba(255,240,200,.35)"); glow.addColorStop(1, "rgba(255,240,200,0)");
+    sx.fillStyle = glow; sx.beginPath(); sx.arc(mx, my, mr * 3.2, 0, 7); sx.fill();
+    sx.fillStyle = "#FFF1C9"; sx.beginPath(); sx.arc(mx, my, mr, 0, 7); sx.fill();
+    sx.globalCompositeOperation = "destination-out";
+    sx.beginPath(); sx.arc(mx + mr * 0.45, my - mr * 0.2, mr * 0.9, 0, 7); sx.fill();
+    sx.globalCompositeOperation = "source-over";
+    // Now and then a shooting star
+    if (!still) {
+      if (!shoot && time > nextShoot) shoot = { x: rand() * w * 0.7, y: rand() * h * 0.35, t0: time };
+      if (shoot) {
+        const k = (time - shoot.t0) / 1.1;
+        if (k > 1) { shoot = null; nextShoot = time + 4 + rand() * 6; }
+        else {
+          const hx = shoot.x + k * 320, hy = shoot.y + k * 140;
+          const tail = sx.createLinearGradient(hx - 130, hy - 57, hx, hy);
+          tail.addColorStop(0, "rgba(255,240,200,0)"); tail.addColorStop(1, `rgba(255,248,226,${1 - k})`);
+          sx.strokeStyle = tail; sx.lineWidth = 2; sx.beginPath(); sx.moveTo(hx - 130, hy - 57); sx.lineTo(hx, hy); sx.stroke();
+        }
+      }
+    }
+  }
+  function skyLoop(t) {
+    skyRaf = 0;
+    if (night <= 0.01) return;
+    drawSky(t);
+    skyRaf = requestAnimationFrame(skyLoop);
+  }
+  sizeSky();
+  addEventListener("resize", sizeSky);
+  let scrollRaf = 0;
+  const onScroll = () => { if (!scrollRaf) scrollRaf = requestAnimationFrame(() => { scrollRaf = 0; measure(); if (!visible && still) draw(0); }); };
+  addEventListener("scroll", onScroll, { passive: true });
+  // Switching tabs hides the painting, which should bring the day back
+  addEventListener("hashchange", () => setTimeout(onScroll, 50));
+  document.addEventListener("click", () => setTimeout(onScroll, 60));
 
   function loop(t) {
     raf = 0;

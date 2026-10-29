@@ -279,7 +279,7 @@ em { font-style: italic; }
 .abroad { display: flex; flex-wrap: wrap; justify-content: center; gap: .6rem; margin: 1.5rem 0 0; }
 .chip {
   font: inherit; font-size: 1.05rem; color: var(--ink);
-  padding: .35rem .95rem; border-radius: 999px; border: 1px solid var(--line); background: #fff; cursor: pointer;
+  padding: .35rem .95rem; border-radius: 999px; border: 1px solid var(--line); background: var(--card, #fff); cursor: pointer;
 }
 .chip.soon { border-style: dashed; }
 .chip.is-on { background: var(--ink); border-color: var(--ink); color: var(--paper); }
@@ -290,7 +290,7 @@ em { font-style: italic; }
 .legend i.wedding { background: #D98C8C; }
 .place-card {
   max-width: 30rem; margin: 2rem auto 0; padding: 1.5rem; text-align: center;
-  background: #fff; border: 1px solid var(--line); border-radius: 18px;
+  background: var(--card, #fff); border: 1px solid var(--line); border-radius: 18px;
   animation: card-in .5s var(--ease);
 }
 @keyframes card-in { from { opacity: 0; transform: translateY(10px) scale(.98); } to { opacity: 1; transform: none; } }
@@ -354,14 +354,14 @@ details p { margin: 0 0 1.2rem; color: var(--ink-soft); }
 .field { display: grid; gap: .4rem; font-weight: 500; }
 .field input, .field select, .field textarea {
   width: 100%; font: inherit; font-weight: 400; color: var(--ink);
-  background: #fff; border: 1px solid var(--line); border-radius: 12px; padding: .7rem 1rem;
+  background: var(--card, #fff); border: 1px solid var(--line); border-radius: 12px; padding: .7rem 1rem;
   transition: border-color .2s;
 }
 .field input:focus, .field select:focus, .field textarea:focus { outline: none; border-color: var(--dusty); }
 .hint { font-weight: 400; font-size: 1rem; font-style: italic; color: var(--ink-soft); }
 .choice { border: 0; padding: 0; margin: 0; display: grid; gap: .6rem; }
 .choice legend { font-weight: 500; margin-bottom: .6rem; }
-.choice label { display: flex; gap: .75rem; align-items: center; padding: .8rem 1rem; border: 1px solid var(--line); border-radius: 12px; background: #fff; cursor: pointer; }
+.choice label { display: flex; gap: .75rem; align-items: center; padding: .8rem 1rem; border: 1px solid var(--line); border-radius: 12px; background: var(--card, #fff); cursor: pointer; }
 .choice label:has(input:checked) { border-color: var(--dusty); background: var(--mist); }
 .choice input { accent-color: var(--dusty-deep); width: 1.1rem; height: 1.1rem; }
 #attending-fields { display: grid; gap: 1.4rem; }
@@ -630,3 +630,10 @@ main, .foot { position: relative; z-index: 2; }
 .foot-sky { position: absolute; inset: 0; pointer-events: none; }
 .foot-sky i { position: absolute; width: 3px; height: 3px; border-radius: 50%; background: #FFF4CF; animation: twinkle 3.5s ease-in-out infinite; }
 @media (prefers-reduced-motion: reduce) { .trail-star { display: none; } .constellation line { stroke-dashoffset: 0; transition: none; } .us-map .pin circle { animation: none; } }
+
+/* ---------- Night falls with scroll (painting.js sets --night and the colour tokens) ---------- */
+.night-sky { position: fixed; inset: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: 0; opacity: 0; }
+main, .foot { position: relative; z-index: 1; }
+.garden { filter: brightness(calc(1 - var(--night, 0) * .78)) saturate(calc(1 - var(--night, 0) * .35)) hue-rotate(calc(var(--night, 0) * 25deg)); }
+.is-night .feature-photo img, .is-night .story-photo img { box-shadow: 0 0 40px rgba(255, 236, 190, .12); }
+.is-night .names, .is-night .foot-names { text-shadow: 0 0 18px rgba(255, 236, 190, .35); }
