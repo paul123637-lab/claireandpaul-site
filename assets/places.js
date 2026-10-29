@@ -45,9 +45,6 @@ window.PLACES = [
   { id: "manhattanbeach", name: "Manhattan Beach, CA", lon: -118.410, lat: 33.885, kind: "been",
     note: "Sunset on the sand.", photo: "assets/places/manhattan-beach-2021.webp",
     photoAlt: "Claire leading Paul by the hand across Manhattan Beach" },
-  { id: "aquariumpacific", name: "Aquarium of the Pacific, CA", lon: -118.197, lat: 33.762, kind: "been",
-    note: "A day at the aquarium.", photo: "assets/places/aquarium-pacific-together-2021.webp",
-    photoAlt: "Claire and Paul in masks taking a selfie by an aquarium exhibit" },
   { id: "dc", name: "Washington, DC", lon: -77.04, lat: 38.91, kind: "soon", note: "Coming up this November, for SfN." }
 ];
 
