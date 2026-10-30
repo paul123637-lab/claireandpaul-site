@@ -28,7 +28,11 @@
   let W = 0, H = 0, dpr = 1, fit = null, night = 0, sp = 0, visible = false, raf = 0;
   const IW = 715, IH = 490;
   // Night palette for the sky, light to deep
-  const NIGHT = [[24, 38, 82], [38, 62, 118], [62, 96, 158], [228, 206, 120]];
+  // A romantic dusk: deep indigo overhead, plum in the middle, rose near the horizon,
+  // and a lavender-rose meadow below. A few soft candlelight flecks in the sky.
+  const SKY = [[27, 32, 66], [44, 42, 88], [74, 56, 108], [128, 84, 126], [176, 118, 140]];
+  const MEADOW = [[92, 72, 110], [118, 88, 128], [150, 108, 140], [178, 136, 156]];
+  const GLOW = [246, 222, 178];
 
   function build() {
     const c = document.createElement("canvas");
@@ -69,7 +73,8 @@
         const gx = lum(sx + 1, sy) - lum(sx - 1, sy), gy = lum(sx, sy + 1) - lum(sx, sy - 1);
         const v = sy / IH;
         // Sky strokes pick a night colour; a few become warm star swirls
-        const n = rand() < 0.035 ? NIGHT[3] : NIGHT[Math.floor(rand() * 3)];
+        const band = SKY[clamp(Math.floor(v / 0.5 * SKY.length + (rand() - 0.5) * 1.4), 0, SKY.length - 1)];
+        const n = v < 0.5 ? (rand() < 0.012 ? GLOW : band) : MEADOW[Math.floor(rand() * MEADOW.length)];
         strokes.push({
           u: sx / IW, v, angle: Math.atan2(gy, gx) + Math.PI / 2 + (rand() - 0.5) * 0.7,
           r: px[i], g: px[i + 1], b: px[i + 2], n,
@@ -80,7 +85,7 @@
     }
     for (let i = strokes.length - 1; i > 0; i--) { const j = Math.floor(rand() * (i + 1)); [strokes[i], strokes[j]] = [strokes[j], strokes[i]]; }
     for (let i = 0; i < 46; i++) stars.push({ u: rand(), v: rand() * 0.6, r: 1.4 + rand() * 2.4, phase: rand() * 6 });
-    const tones = ["#6c8a9e", "#8fae9a", "#a9c1a4", "#59768a", "#c6d2bb", "#d9b87a"];
+    const tones = ["#e8c7c8", "#d9a9b4", "#f3e3d3", "#b8c9b1", "#cfb3cf", "#f1d7a8"];
     for (let i = 0; i < 900; i++) planet.push({ a: Math.PI + rand() * Math.PI, rr: Math.sqrt(rand()), color: tones[Math.floor(rand() * tones.length)], tilt: (rand() - 0.5) * 0.8 });
   }
 
@@ -114,20 +119,21 @@
       const nk = night * k.sky;
       // Starry swirl: sky strokes turn to follow a flowing field of eddies
       // The eddies turn as you scroll, so the whole sky churns with the page
-      const fx = k.u * 6 + time * 0.12 + sp * 7, fy = k.v * 7 - sp * 3;
+      const fx = k.u * 4 + time * 0.03 + sp * 2.5, fy = k.v * 5 - sp * 1.2;
       const flow = Math.atan2(Math.cos(fx) * Math.sin(fy), Math.sin(fx + fy * 0.6)) + Math.PI / 2;
-      const wob = still ? 0 : Math.sin(time * 0.9 + k.phase) * (0.18 + nk * 0.3);
+      const wob = still ? 0 : Math.sin(time * 0.35 + k.phase) * 0.06;
       // Ground strokes lie down into long horizontal grass at night
       const lay = night * (1 - k.sky) * 0.8;
       const a = k.angle + (flow - k.angle) * nk + (0 - k.angle) * lay + wob;
-      const l = base * k.len * (1 + nk * 1.6);
+      const l = base * k.len * (1 + nk * 0.7);
       const r = k.r + (k.n[0] - k.r) * nk, g = k.g + (k.n[1] - k.g) * nk, b = k.b + (k.n[2] - k.b) * nk;
       // Ground darkens toward a moonlit blue-green as night falls
       const gd = night * (1 - k.sky);
-      ctx.strokeStyle = `rgb(${r * (1 - gd * 0.7) | 0},${g * (1 - gd * 0.6) | 0},${(b * (1 - gd * 0.5) + gd * 30) | 0})`;
+      const R = r + (k.n[0] - r) * gd, G = g + (k.n[1] - g) * gd, B = b + (k.n[2] - b) * gd;
+      ctx.strokeStyle = `rgb(${R | 0},${G | 0},${B | 0})`;
       const dx = Math.cos(a) * l, dy = Math.sin(a) * l;
       // Night strokes ride along the flow instead of staying pinned in place
-      const ride = nk * base * 5 * Math.sin(time * 0.8 + k.phase + sp * 9);
+      const ride = nk * base * 1.2 * Math.sin(time * 0.25 + k.phase);
       const qx = px + Math.cos(a) * ride, qy = py + Math.sin(a) * ride;
       ctx.beginPath(); ctx.moveTo(qx - dx, qy - dy); ctx.lineTo(qx + dx, qy + dy); ctx.stroke();
     }
@@ -135,7 +141,7 @@
     // Stars come out
     if (night > 0.01) {
       for (const st of stars) {
-        const tw = 0.4 + 0.6 * Math.abs(Math.sin(time * 1.4 + st.phase));
+        const tw = 0.55 + 0.45 * Math.sin(time * 0.5 + st.phase);
         const x = st.u * W, y = st.v * H;
         ctx.fillStyle = `rgba(255,246,206,${night * tw})`;
         ctx.beginPath();
@@ -152,7 +158,7 @@
     if (night > 0.01) {
       ctx.globalAlpha = smooth(0, 0.6, night);
       const disc = ctx.createRadialGradient(cxx - pr * 0.3, pcy - pr * 0.4, pr * 0.1, cxx, pcy, pr);
-      disc.addColorStop(0, "#c9d6c0"); disc.addColorStop(0.6, "#7f9b8f"); disc.addColorStop(1, "#4a647a");
+      disc.addColorStop(0, "#f6e6dc"); disc.addColorStop(0.6, "#d7aab6"); disc.addColorStop(1, "#8a6a92");
       ctx.fillStyle = disc;
       ctx.beginPath(); ctx.arc(cxx, pcy, pr, 0, Math.PI * 2); ctx.fill();
       ctx.lineWidth = base * 1.4;
@@ -172,7 +178,7 @@
   // Night falls over a long stretch of scrolling: it starts while the schedule is on
   // screen and is complete once the painting is centred. The whole page follows.
   const DAY = { paper: "#FAF9F5", "paper-deep": "#F2F0E8", ink: "#22313D", "ink-soft": "#55636F", dusty: "#5C8DAF", "dusty-deep": "#3F6683", mist: "#E6EEF4", line: "#DCE3E9", card: "#FFFFFF" };
-  const DARK = { paper: "#121a33", "paper-deep": "#18223f", ink: "#EEF0F6", "ink-soft": "#B6C1D6", dusty: "#8FB4D6", "dusty-deep": "#A9C6E4", mist: "#22315a", line: "#2f4068", card: "#1a2648" };
+  const DARK = { paper: "#1d1d3a", "paper-deep": "#252447", ink: "#EEF0F6", "ink-soft": "#B6C1D6", dusty: "#8FB4D6", "dusty-deep": "#A9C6E4", mist: "#2c2a52", line: "#3b3866", card: "#26264a" };
   const hex = h => [1, 3, 5].map(i => parseInt(h.slice(i, i + 2), 16));
   const root = document.documentElement;
   let lastNight = -1;
@@ -212,12 +218,12 @@
     const drift = (scrollY * 0.05) % h;
     for (const st of skyStars) {
       const y = (st.y * h - drift + h) % h, x = st.x * w;
-      const tw = 0.35 + 0.65 * Math.abs(Math.sin(time * (st.big ? 0.9 : 1.6) + st.ph));
+      const tw = 0.55 + 0.45 * Math.sin(time * (st.big ? 0.35 : 0.6) + st.ph);
       sx.fillStyle = `rgba(255,246,214,${tw})`;
       if (st.big) {
         const R = 2.6 + st.r;
         sx.beginPath();
-        for (let q = 0; q < 8; q++) { const rr = q % 2 ? R * 0.3 : R * 1.6, a = q * Math.PI / 4 + time * 0.2; sx.lineTo(x + Math.cos(a) * rr, y + Math.sin(a) * rr); }
+        for (let q = 0; q < 8; q++) { const rr = q % 2 ? R * 0.3 : R * 1.6, a = q * Math.PI / 4; sx.lineTo(x + Math.cos(a) * rr, y + Math.sin(a) * rr); }
         sx.fill();
       } else { sx.beginPath(); sx.arc(x, y, st.r, 0, 7); sx.fill(); }
     }
