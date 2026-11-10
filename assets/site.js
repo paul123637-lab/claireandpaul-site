@@ -27,6 +27,7 @@
       tabBears.classList.remove("is-hopping");
       void tabBears.offsetWidth;
       tabBears.classList.add("is-hopping");
+      pawPrints(currentX, x);
     }
     tabBears.style.setProperty("--bx", `${x}px`);
     currentX = x;
@@ -218,6 +219,7 @@
     const r = schedule.getBoundingClientRect();
     const p = reduced ? 1 : Math.min(1, Math.max(0, (mark - r.top) / r.height));
     schedule.style.setProperty("--progress", p.toFixed(3));
+    schedule.closest(".block")?.style.setProperty("--sun", p.toFixed(3));
     [...schedule.children].forEach(li => li.classList.toggle("is-passed", reduced || li.getBoundingClientRect().top < mark));
   }
   // On the wedding day, mark what's happening right now
@@ -648,6 +650,122 @@
     update();
   }
 
+  // ---------- Little paw prints in the sand when the bears hop between tabs ----------
+
+  function pawPrints(fromX, toX) {
+    const bar = tabBears.parentElement;
+    const n = Math.min(7, Math.max(2, Math.round(Math.abs(toX - fromX) / 60)));
+    for (let k = 1; k <= n; k++) {
+      const t = k / (n + 1);
+      const paw = document.createElement("span");
+      paw.className = "paw";
+      paw.setAttribute("aria-hidden", "true");
+      paw.style.left = `${fromX + (toX - fromX) * t + tabBears.offsetWidth / 2 + (k % 2 ? -7 : 7)}px`;
+      paw.style.animationDelay = `${t * 0.5}s`;
+      paw.style.setProperty("--turn", toX > fromX ? "90deg" : "-90deg");
+      bar.append(paw);
+      paw.addEventListener("animationend", () => paw.remove());
+    }
+  }
+
+  // ---------- Our Story: a dotted flight path between California and Texas ----------
+
+  function flightPath() {
+    const story = document.querySelector(".story");
+    if (!story) return;
+    const NS = "http://www.w3.org/2000/svg";
+    const stops = [["Hinge would lead", "January 2021"], ["ticket to Lubbock", "Lubbock"], ["October 18, 2025", "October 18, 2025"], ["August 21, 2026", "August 21, 2026"]];
+    const paras = [...story.querySelectorAll("p")];
+    const miles = [];
+    stops.forEach(([needle, label]) => {
+      const p = paras.find(q => q.textContent.includes(needle));
+      if (!p) return;
+      const tag = document.createElement("span");
+      tag.className = "mile";
+      tag.textContent = label;
+      p.before(tag);
+      miles.push(tag);
+    });
+    story.classList.add("has-flight");
+    const svg = document.createElementNS(NS, "svg");
+    svg.setAttribute("class", "flight");
+    svg.setAttribute("aria-hidden", "true");
+    svg.innerHTML = '<path class="flight-base"/><path class="flight-done"/><g class="flight-dots"></g><g class="plane"><path d="M11 0C11-1.3 9.5-2 8-2H3L-3-10H-6L-3-2H-8L-10.5-5H-12.5L-11 0-12.5 5H-10.5L-8 2H-3L-6 10H-3L3 2H8C9.5 2 11 1.3 11 0Z"/></g>';
+    story.prepend(svg);
+    const [base, done, dots, plane] = [svg.children[0], svg.children[1], svg.children[2], svg.children[3]];
+    let len = 0, H = 0;
+
+    const layout = () => {
+      H = story.offsetHeight;
+      if (!H) return;
+      const top = story.querySelector("h2")?.offsetHeight + 30 || 40;
+      svg.setAttribute("viewBox", `0 0 40 ${H}`);
+      svg.style.height = `${H}px`;
+      let d = `M20 ${top}`;
+      for (let y = top, k = 0; y < H - 40; k++) {
+        const ny = Math.min(H - 40, y + 140);
+        d += ` Q${k % 2 ? 34 : 6} ${(y + ny) / 2} 20 ${ny}`;
+        y = ny;
+      }
+      base.setAttribute("d", d);
+      done.setAttribute("d", d);
+      len = base.getTotalLength();
+      done.style.strokeDasharray = `${len}`;
+      dots.innerHTML = "";
+      miles.forEach(m => {
+        const c = document.createElementNS(NS, "circle");
+        c.setAttribute("cx", 20); c.setAttribute("cy", m.offsetTop + 10); c.setAttribute("r", 4.5);
+        dots.append(c);
+      });
+      update();
+    };
+
+    const update = () => {
+      if (!H || story.offsetParent === null) return;
+      const r = story.getBoundingClientRect();
+      const f = reduced ? 1 : Math.min(1, Math.max(0, (innerHeight * 0.55 - r.top) / r.height));
+      done.style.strokeDashoffset = `${len * (1 - f)}`;
+      const at = Math.max(0.5, len * f);
+      const p = base.getPointAtLength(at), q = base.getPointAtLength(Math.min(len, at + 1));
+      const deg = Math.atan2(q.y - p.y, q.x - p.x) * 180 / Math.PI;
+      plane.setAttribute("transform", `translate(${p.x} ${p.y}) rotate(${deg})`);
+      [...dots.children].forEach((c, k) => c.classList.toggle("is-reached", +c.getAttribute("cy") <= p.y + 2));
+      miles.forEach(m => m.classList.toggle("is-reached", m.offsetTop + 10 <= p.y + 2));
+    };
+
+    new ResizeObserver(layout).observe(story);
+    let q = false;
+    addEventListener("scroll", () => { if (!q) { q = true; requestAnimationFrame(() => { q = false; update(); }); } }, { passive: true });
+  }
+
+  // ---------- Stars come out over the schedule as the evening arrives ----------
+
+  function sunsetStars() {
+    const block = schedule?.closest(".block");
+    if (!block) return;
+    block.classList.add("sunset");
+    const sky = document.createElement("div");
+    sky.className = "dusk-stars";
+    sky.setAttribute("aria-hidden", "true");
+    [[8, 70], [16, 82], [88, 68], [93, 86], [12, 93], [84, 95], [5, 60], [95, 55]].forEach(([x, y], k) => {
+      const st = document.createElement("span");
+      st.style.cssText = `left:${x}%;top:${y}%;animation-delay:${k * 0.4}s`;
+      sky.append(st);
+    });
+    block.prepend(sky);
+  }
+
+  // ---------- Bubu and Dudu wave goodbye at the bottom of the page ----------
+
+  function footerWave() {
+    const bears = document.querySelector(".foot-bears");
+    if (!bears || reduced) return;
+    new IntersectionObserver(([e]) => {
+      if (!e.isIntersecting) return;
+      bears.classList.remove("is-waving"); void bears.offsetWidth; bears.classList.add("is-waving");
+    }, { threshold: 0.8 }).observe(bears);
+  }
+
   // ---------- Wire up ----------
 
   function init() {
@@ -671,6 +789,9 @@
     petals();
     reveals();
     scrollExtras();
+    flightPath();
+    sunsetStars();
+    footerWave();
 
     // fonts change tab widths, so place the bears again once they've loaded
     showTab(location.hash.slice(1) || "home", false);

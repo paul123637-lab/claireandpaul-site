@@ -740,3 +740,68 @@ html { scrollbar-color: #A9BDCD transparent; scrollbar-width: thin; scroll-behav
   html { scroll-behavior: auto; }
   .read-boat, .to-top:hover svg, .env-seal::after, .page:not([hidden]) { animation: none; }
 }
+
+/* ---------- Our Story flight path ---------- */
+.story.has-flight { position: relative; padding-left: 3.2rem; }
+.story.has-flight .story-photo { margin-left: -2.2rem; }
+.flight { position: absolute; left: -.2rem; top: 0; width: 40px; overflow: visible; pointer-events: none; }
+.flight path { fill: none; }
+.flight-base { stroke: #CBD6DF; stroke-width: 1.6; stroke-dasharray: 2 7; stroke-linecap: round; }
+.flight-done { stroke: var(--dusty-deep); stroke-width: 1.8; stroke-linecap: round; transition: stroke-dashoffset .15s linear; }
+.flight-dots circle { fill: var(--paper); stroke: #B7C8D5; stroke-width: 1.5; transition: fill .5s, stroke .5s, r .5s; }
+.flight-dots circle.is-reached { fill: var(--dusty-deep); stroke: var(--dusty-deep); }
+.plane path { fill: var(--dusty-deep); stroke: var(--paper); stroke-width: 1; }
+.plane { filter: drop-shadow(0 1px 1px rgba(47,62,78,.25)); }
+.mile { display: block; margin: 1.6rem 0 .2rem; font-style: italic; font-size: .95rem; letter-spacing: .02em; color: #9AABB9; transition: color .6s; }
+.mile.is-reached { color: var(--dusty-deep); }
+@media (max-width: 560px) { .story.has-flight { padding-left: 2.4rem; } .flight { left: -.6rem; } .story.has-flight .story-photo { margin-left: -1.4rem; } }
+
+/* ---------- Sunset over the big day ---------- */
+.block.sunset { position: relative; isolation: isolate; }
+.block.sunset::before {
+  content: ""; position: absolute; inset: -3rem -50vw; z-index: -1; pointer-events: none;
+  background: linear-gradient(180deg, rgba(248,246,240,0) 0%, rgba(251,226,200,.55) 45%, rgba(216,190,206,.55) 75%, rgba(163,177,207,.5) 100%);
+  opacity: calc(var(--sun, 0) * .9);
+  -webkit-mask: linear-gradient(transparent, #000 15%, #000 85%, transparent); mask: linear-gradient(transparent, #000 15%, #000 85%, transparent);
+}
+.dusk-stars { position: absolute; inset: 0 -2rem; z-index: -1; pointer-events: none; opacity: clamp(0, calc((var(--sun, 0) - .72) * 4), 1); }
+.dusk-stars span { position: absolute; width: 5px; height: 5px; border-radius: 50%; background: #FFF8E2; box-shadow: 0 0 6px 2px rgba(255,240,200,.8); animation: twinkle 2.6s ease-in-out infinite; }
+@keyframes twinkle { 50% { opacity: .3; transform: scale(.7); } }
+
+/* ---------- A lighthouse beam passes over each title ---------- */
+.js .block h2 { position: relative; }
+.js .block h2.is-seen::after {
+  content: ""; position: absolute; inset: -10% -6%; pointer-events: none;
+  background: linear-gradient(105deg, transparent 38%, rgba(255,239,192,.75) 50%, transparent 62%) -120% 0 / 220% 100% no-repeat;
+  mix-blend-mode: screen; animation: beam-pass 1.6s ease-in-out .9s both;
+}
+@keyframes beam-pass { from { background-position: -120% 0; } to { background-position: 220% 0; opacity: 0; } }
+
+/* ---------- Photos as scattered prints ---------- */
+.gallery { overflow: visible; gap: 1.4rem; padding: .6rem; }
+.gallery img {
+  background: #fff; padding: 8px 8px 30px; border-radius: 2px; box-sizing: border-box;
+  box-shadow: 0 10px 24px -14px rgba(47,62,78,.55), 0 1px 2px rgba(47,62,78,.12);
+  transform: rotate(var(--tilt, 0deg)); transition: transform .5s var(--ease), box-shadow .5s;
+}
+.gallery img:nth-child(4n+1) { --tilt: -1.6deg; }
+.gallery img:nth-child(4n+2) { --tilt: 1.3deg; }
+.gallery img:nth-child(4n+3) { --tilt: .8deg; }
+.gallery img:nth-child(4n) { --tilt: -1deg; }
+@media (hover: hover) {
+  .gallery img:hover { transform: rotate(0deg) scale(1.03); box-shadow: 0 18px 34px -16px rgba(47,62,78,.6); z-index: 1; position: relative; }
+}
+
+/* ---------- Bears: wave goodbye, hop for joy, leave paw prints ---------- */
+.foot-bears.is-waving { animation: bear-wave 1.4s var(--ease); transform-origin: 50% 90%; }
+@keyframes bear-wave { 15% { transform: rotate(-7deg); } 35% { transform: rotate(6deg); } 55% { transform: rotate(-5deg); } 75% { transform: rotate(3deg) translateY(-3px); } }
+#rsvp-done:not([hidden]) .confirm-bears { animation: card-in .8s var(--ease), joy-hop .7s var(--ease) .8s 2; }
+@keyframes joy-hop { 40% { transform: translateY(-14px) rotate(-2deg); } }
+.paw { position: absolute; top: -9px; width: 10px; height: 10px; pointer-events: none; opacity: 0; transform: rotate(var(--turn)); animation: paw-fade 2.6s ease-out both;
+  background: radial-gradient(circle at 50% 70%, #B9A27E 2.5px, transparent 3px), radial-gradient(circle at 20% 25%, #B9A27E 1.2px, transparent 1.6px), radial-gradient(circle at 50% 12%, #B9A27E 1.2px, transparent 1.6px), radial-gradient(circle at 80% 25%, #B9A27E 1.2px, transparent 1.6px); }
+@keyframes paw-fade { 10% { opacity: .75; } 70% { opacity: .5; } 100% { opacity: 0; } }
+
+@media (prefers-reduced-motion: reduce) {
+  .js .block h2.is-seen::after, .dusk-stars span, .foot-bears.is-waving, #rsvp-done:not([hidden]) .confirm-bears, .paw { animation: none; }
+  .gallery img { transition: none; }
+}
