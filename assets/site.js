@@ -219,7 +219,6 @@
     const r = schedule.getBoundingClientRect();
     const p = reduced ? 1 : Math.min(1, Math.max(0, (mark - r.top) / r.height));
     schedule.style.setProperty("--progress", p.toFixed(3));
-    schedule.closest(".block")?.style.setProperty("--sun", p.toFixed(3));
     [...schedule.children].forEach(li => li.classList.toggle("is-passed", reduced || li.getBoundingClientRect().top < mark));
   }
   // On the wedding day, mark what's happening right now
@@ -738,21 +737,37 @@
     addEventListener("scroll", () => { if (!q) { q = true; requestAnimationFrame(() => { q = false; update(); }); } }, { passive: true });
   }
 
-  // ---------- Stars come out over the schedule as the evening arrives ----------
+  // ---------- The page drifts into sunset, then starlight, as you read the schedule ----------
 
   function sunsetStars() {
-    const block = schedule?.closest(".block");
-    if (!block) return;
-    block.classList.add("sunset");
+    if (!schedule) return;
     const sky = document.createElement("div");
-    sky.className = "dusk-stars";
+    sky.className = "dusk-sky";
     sky.setAttribute("aria-hidden", "true");
-    [[8, 70], [16, 82], [88, 68], [93, 86], [12, 93], [84, 95], [5, 60], [95, 55]].forEach(([x, y], k) => {
+    sky.innerHTML = '<div class="glow"></div><div class="sun"></div><div class="stars"></div>';
+    [[8, 12], [18, 30], [27, 8], [41, 22], [58, 10], [66, 34], [77, 16], [88, 28], [94, 9], [12, 48], [83, 50], [50, 40]].forEach(([x, y], k) => {
       const st = document.createElement("span");
-      st.style.cssText = `left:${x}%;top:${y}%;animation-delay:${k * 0.4}s`;
-      sky.append(st);
+      st.style.cssText = `left:${x}%;top:${y}%;animation-delay:${(k * 0.37) % 2.6}s`;
+      sky.querySelector(".stars").append(st);
     });
-    block.prepend(sky);
+    document.body.append(sky);
+    const block = schedule.closest(".block");
+    let q = false;
+    const update = () => {
+      q = false;
+      if (block.offsetParent === null) { sky.style.setProperty("--dusk", 0); return; }
+      const r = block.getBoundingClientRect();
+      // rises from 0 as the schedule enters, reaches full dusk at the 9:00 send-off,
+      // then fades back out once the section has scrolled well past
+      const into = (innerHeight * 0.85 - r.top) / (r.height * 0.9);
+      const after = r.bottom < innerHeight * 0.3 ? Math.max(0, 1 - (innerHeight * 0.3 - r.bottom) / (innerHeight * 0.6)) : 1;
+      const d = Math.min(1, Math.max(0, into)) * after;
+      sky.style.setProperty("--dusk", (reduced ? Math.round(d) : d).toFixed(3));
+    };
+    addEventListener("scroll", () => { if (!q) { q = true; requestAnimationFrame(update); } }, { passive: true });
+    addEventListener("resize", update);
+    document.addEventListener("click", e => { if (e.target.closest("a[data-tab]")) setTimeout(update, 450); });
+    update();
   }
 
   // ---------- Bubu and Dudu wave goodbye at the bottom of the page ----------

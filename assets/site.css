@@ -743,7 +743,7 @@ html { scrollbar-color: #A9BDCD transparent; scrollbar-width: thin; scroll-behav
 
 /* ---------- Our Story flight path ---------- */
 .story.has-flight { position: relative; padding-left: 3.2rem; }
-.story.has-flight .story-photo { margin-left: -2.2rem; }
+.story.has-flight .story-photo { margin-left: 0; margin-right: 0; }
 .flight { position: absolute; left: -.2rem; top: 0; width: 40px; overflow: visible; pointer-events: none; }
 .flight path { fill: none; }
 .flight-base { stroke: #CBD6DF; stroke-width: 1.6; stroke-dasharray: 2 7; stroke-linecap: round; }
@@ -754,18 +754,17 @@ html { scrollbar-color: #A9BDCD transparent; scrollbar-width: thin; scroll-behav
 .plane { filter: drop-shadow(0 1px 1px rgba(47,62,78,.25)); }
 .mile { display: block; margin: 1.6rem 0 .2rem; font-style: italic; font-size: .95rem; letter-spacing: .02em; color: #9AABB9; transition: color .6s; }
 .mile.is-reached { color: var(--dusty-deep); }
-@media (max-width: 560px) { .story.has-flight { padding-left: 2.4rem; } .flight { left: -.6rem; } .story.has-flight .story-photo { margin-left: -1.4rem; } }
+@media (max-width: 560px) { .story.has-flight { padding-left: 2.4rem; } .flight { left: -.6rem; } }
 
-/* ---------- Sunset over the big day ---------- */
-.block.sunset { position: relative; isolation: isolate; }
-.block.sunset::before {
-  content: ""; position: absolute; inset: -3rem -50vw; z-index: -1; pointer-events: none;
-  background: linear-gradient(180deg, rgba(248,246,240,0) 0%, rgba(251,226,200,.55) 45%, rgba(216,190,206,.55) 75%, rgba(163,177,207,.5) 100%);
-  opacity: calc(var(--sun, 0) * .9);
-  -webkit-mask: linear-gradient(transparent, #000 15%, #000 85%, transparent); mask: linear-gradient(transparent, #000 15%, #000 85%, transparent);
-}
-.dusk-stars { position: absolute; inset: 0 -2rem; z-index: -1; pointer-events: none; opacity: clamp(0, calc((var(--sun, 0) - .72) * 4), 1); }
-.dusk-stars span { position: absolute; width: 5px; height: 5px; border-radius: 50%; background: #FFF8E2; box-shadow: 0 0 6px 2px rgba(255,240,200,.8); animation: twinkle 2.6s ease-in-out infinite; }
+/* ---------- The whole page drifts into sunset over the big day ---------- */
+.dusk-sky { position: fixed; inset: 0; z-index: -1; pointer-events: none; opacity: var(--dusk, 0); transition: opacity .35s linear; }
+.dusk-sky .glow { position: absolute; inset: 0;
+  background: linear-gradient(180deg, rgba(167,180,214,.55) 0%, rgba(222,190,210,.6) 38%, rgba(252,214,182,.7) 72%, rgba(253,232,205,.55) 100%); }
+.dusk-sky .sun { position: absolute; left: 50%; width: 46vmin; height: 46vmin; margin-left: -23vmin; border-radius: 50%;
+  top: calc(52% + var(--dusk, 0) * 34%);
+  background: radial-gradient(circle, rgba(255,214,160,.95) 0%, rgba(255,190,150,.55) 35%, rgba(255,190,150,0) 70%); filter: blur(4px); }
+.dusk-sky .stars { position: absolute; inset: 0 0 45% 0; opacity: clamp(0, calc((var(--dusk, 0) - .6) * 2.5), 1); }
+.dusk-sky .stars span { position: absolute; width: 4px; height: 4px; border-radius: 50%; background: #FFF8E2; box-shadow: 0 0 6px 2px rgba(255,240,200,.85); animation: twinkle 2.6s ease-in-out infinite; }
 @keyframes twinkle { 50% { opacity: .3; transform: scale(.7); } }
 
 /* ---------- A lighthouse beam passes over each title ---------- */
@@ -802,6 +801,6 @@ html { scrollbar-color: #A9BDCD transparent; scrollbar-width: thin; scroll-behav
 @keyframes paw-fade { 10% { opacity: .75; } 70% { opacity: .5; } 100% { opacity: 0; } }
 
 @media (prefers-reduced-motion: reduce) {
-  .js .block h2.is-seen::after, .dusk-stars span, .foot-bears.is-waving, #rsvp-done:not([hidden]) .confirm-bears, .paw { animation: none; }
+  .js .block h2.is-seen::after, .dusk-sky .stars span, .foot-bears.is-waving, #rsvp-done:not([hidden]) .confirm-bears, .paw { animation: none; }
   .gallery img { transition: none; }
 }
