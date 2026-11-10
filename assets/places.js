@@ -53,9 +53,6 @@ window.PLACES = [
   { id: "koreatown", name: "Koreatown, LA", lon: -118.300, lat: 34.061, kind: "been",
     note: "Korean BBQ in Koreatown.", photo: "assets/places/koreatown-together-2022.webp",
     photoAlt: "Claire and Paul at a Korean restaurant table in Koreatown" },
-  { id: "escapehalloween", name: "San Bernardino, CA", lon: -117.272, lat: 34.087, kind: "been",
-    note: "Escape Halloween, Claire's first rave.", photo: "assets/places/escape-halloween-together-2021.webp",
-    photoAlt: "Claire and Paul in costume at Escape Halloween in San Bernardino" },
   { id: "dc", name: "Washington, DC", lon: -77.04, lat: 38.91, kind: "soon", note: "Coming up this November, for SfN." }
 ];
 
