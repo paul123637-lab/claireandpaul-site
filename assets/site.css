@@ -637,3 +637,64 @@ main, .foot { position: relative; z-index: 1; }
 .garden { filter: brightness(calc(1 - var(--night, 0) * .78)) saturate(calc(1 - var(--night, 0) * .35)) hue-rotate(calc(var(--night, 0) * 25deg)); }
 .is-night .feature-photo img, .is-night .story-photo img { box-shadow: 0 0 40px rgba(255, 236, 190, .12); }
 .is-night .names, .is-night .foot-names { text-shadow: 0 0 18px rgba(255, 236, 190, .35); }
+
+/* ---------- Printed invitation: ivory paper, slate ink, real photographs ---------- */
+:root { --paper: #F8F6F0; --paper-deep: #F0EDE4; --ink: #2F3E4E; --ink-soft: #5F6A76; --dusty: #7F9BB3; --dusty-deep: #4F6C85; --line: #D5D8DA; }
+.hero { padding: 1.5rem 1rem 3rem; }
+.hero-photo { margin: 0 auto 1.6rem; max-width: 60rem; }
+.hero-photo img { width: 100%; height: auto; aspect-ratio: 3 / 2; max-height: 62vh; object-fit: cover; object-position: center 22%; border-radius: 2px; }
+.names { flex-direction: row; justify-content: center; gap: .22em; flex-wrap: wrap; font-size: clamp(3.3rem, 9vw, 5.6rem); line-height: 1.1; }
+.names .plus { margin: 0; align-self: center; }
+.names span:last-child { margin-left: 0; }
+.date { margin-top: .5rem; }
+.actions { margin-top: 1.3rem; }
+.countdown { display: block; margin: 1.1rem 0 0; color: var(--ink-soft); }
+.countdown div { display: none; }
+.countdown div:first-child { display: inline; border: 0; padding: 0; background: none; box-shadow: none; }
+.countdown span, .countdown small { display: inline; font: inherit; color: inherit; margin: 0; animation: none !important; }
+.countdown small { margin-left: .25em; }
+.foot { background: var(--paper); color: var(--ink); border-top: 1px solid var(--line); }
+.foot-names, .foot-date { color: var(--ink); }
+.foot-bears { position: static; margin: 0 auto .5rem; width: 5.5rem; }
+@media (max-width: 700px) { .hero { padding-top: .75rem; } .hero-photo img { max-height: 40vh; } }
+.hero { display: flex; flex-direction: column; align-items: center; }
+.hero-photo { width: 100%; }
+.hero-photo img { max-height: 54vh; }
+.hero .actions { order: 1; } .hero .arrival { order: 2; margin-top: 1.4rem; } .hero .countdown { order: 3; } .hero .game-link { order: 4; }
+.schedule time { color: var(--ink-soft); }
+@media (max-width: 700px) { .hero-photo { margin-bottom: 1rem; } .hero-photo img { max-height: 36vh; } }
+.foot::before, .foot::after { display: none; }
+
+/* ---------- Palos Verdes down each side: the lighthouse, and Wayfarers Chapel for Wendy ---------- */
+.coast { display: none; position: fixed; bottom: 0; width: calc((100vw - 60rem) / 2 - .5rem); z-index: 0; pointer-events: none; }
+.coast-art { position: relative; aspect-ratio: 2 / 3; }
+.coast-art img, .coast-art svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+.coast-art img { }
+.coast-left { left: 0; -webkit-mask-image: linear-gradient(90deg, #000 88%, transparent); mask-image: linear-gradient(90deg, #000 88%, transparent); }
+.coast-right { right: 0; -webkit-mask-image: linear-gradient(270deg, #000 88%, transparent); mask-image: linear-gradient(270deg, #000 88%, transparent); }
+@media (min-width: 1280px) { .coast { display: block; } main, .foot { position: relative; z-index: 1; } .coast-band { display: none; } }
+.coast-band { display: grid; grid-template-columns: 1fr 1fr; gap: .5rem; max-width: 44rem; margin: 0 auto; padding: 0 .75rem; }
+.coast-band img { width: 100%; }
+.beam-sweep { transform-box: view-box; transform-origin: 310px 535px; animation: beam 11s ease-in-out infinite; }
+@keyframes beam { 0%, 100% { transform: rotate(-9deg); opacity: .95; } 50% { transform: rotate(7deg); opacity: .45; } }
+.lamp { animation: lamp 11s ease-in-out infinite; }
+@keyframes lamp { 50% { opacity: .55; } }
+.chapel-glow { animation: chapel 9s ease-in-out infinite alternate; }
+@keyframes chapel { from { opacity: .35; } to { opacity: 1; } }
+.glint path { fill: none; stroke: #fff; stroke-width: 3; stroke-linecap: round; opacity: .6; }
+.glint { animation: glint 12s ease-in-out infinite alternate; } .glint2 { animation-delay: -5s; }
+@keyframes glint { to { transform: translateX(34px); opacity: .35; } }
+.boat { animation: boat 80s linear infinite alternate; }
+@keyframes boat { from { transform: translate(60px, 955px); } to { transform: translate(340px, 955px); } }
+.whale { animation: whale 28s ease-in-out infinite; }
+@keyframes whale { 0%, 70%, 100% { transform: translate(780px, 900px) scale(1.5); opacity: 0; } 76%, 86% { opacity: 1; } 82% { transform: translate(792px, 860px) scale(1.5); } 92% { transform: translate(805px, 905px) scale(1.5); opacity: 0; } }
+.gull path { fill: none; stroke: #4F6C85; stroke-width: 3.5; stroke-linecap: round; }
+.gull1 { animation: gull 40s linear infinite; } .gull2 { animation: gull 54s linear infinite -22s; }
+@keyframes gull { 0% { transform: translate(1040px, 330px); } 50% { transform: translate(520px, 240px); } 100% { transform: translate(-80px, 370px); } }
+/* The ocean's pause button stills the whole coast */
+body:has(.ocean:not(.is-live)) .coast * { animation-play-state: paused; }
+@media (prefers-reduced-motion: reduce) { .coast * { animation: none !important; } .whale, .boat, .gull { display: none; } }
+.coast-band { margin-top: 2rem; }
+.foot { background: transparent; }
+@media (min-width: 1280px) { .coast-band { display: none; } }
+.foot { border-top: 0; }
