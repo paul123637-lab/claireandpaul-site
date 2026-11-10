@@ -6,13 +6,13 @@ window.PLACES = [
     note: "Where we'll say \"I do\" on March 7, 2027.", photo: "assets/places/fallbrook-together-2023.webp",
     photoAlt: "Claire and Paul hugging in the gardens at Grand Tradition Estate" },
   { id: "dallas", name: "Dallas, TX", lon: -96.80, lat: 32.78, kind: "been",
-    note: "Our second home.", photo: "assets/places/dallas-color-me-mine-2023.webp",
-    photoAlt: "Claire painting a ceramic figure at Color Me Mine in Plano" },
+    note: "Our second home.", photo: "assets/places/dallas-together-2023.webp",
+    photoAlt: "Paul kissing Claire on the cheek in Dallas" },
   { id: "houston", name: "Houston, TX", lon: -95.37, lat: 29.76, kind: "been", note: "Boba by the Galleria.", photo: "assets/places/houston-galleria-together-2022.webp",
     photoAlt: "Claire and Paul with boba outside the Galleria in Houston" },
   { id: "austin", name: "Austin, TX", lon: -97.74, lat: 30.27, kind: "been", note: "A trip to Austin.", photo: "assets/places/austin.webp" },
-  { id: "disneyworld", name: "Disney World, FL", lon: -81.56, lat: 28.39, kind: "been", note: "Exploring EPCOT together.", photo: "assets/places/disneyworld-epcot-together-2024.webp",
-    photoAlt: "Claire and Paul beneath the torii gate at EPCOT, with Spaceship Earth across the lagoon", photoFrame: "postcard" },
+  { id: "disneyworld", name: "Disney World, FL", lon: -81.56, lat: 28.39, kind: "been", note: "Exploring EPCOT together.", photo: "assets/places/disneyworld-together-2024.webp",
+    photoAlt: "Claire in Remy ears and Paul at Walt Disney World" },
   { id: "disneyland", name: "Disneyland, CA", lon: -117.92, lat: 33.81, kind: "been", note: "A day at Disneyland.", photo: "assets/places/disneyland.webp" },
   { id: "albuquerque", name: "Albuquerque, NM", lon: -106.65, lat: 35.08, kind: "been", note: "A New Mexico trip.", photo: "assets/places/albuquerque-together-2025.webp",
     photoAlt: "Claire and Paul in costume with two giant gingerbread characters in Albuquerque" },
@@ -58,8 +58,8 @@ window.PLACES = [
 ];
 
 window.ABROAD = [
-  { id: "taiwan", name: "Taiwan", kind: "been", note: "Visiting family together.", photo: "assets/places/taiwan-tamsui-2022.webp",
-    photoAlt: "A paddle-wheel riverboat on the Tamsui River in Taiwan" },
+  { id: "taiwan", name: "Taiwan", kind: "been", note: "Visiting family together.", photo: "assets/places/taiwan-together-2022.webp",
+    photoAlt: "Claire and Paul smiling under string lights in Taiwan at Christmas" },
   { id: "korea", name: "Korea", kind: "been", note: "We've been, and we're going back soon!", photo: "assets/places/korea.webp" },
   { id: "japan", name: "Japan", kind: "soon", note: "Next on the list!" }
 ];
