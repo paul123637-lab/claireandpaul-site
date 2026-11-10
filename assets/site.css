@@ -804,3 +804,8 @@ html { scrollbar-color: #A9BDCD transparent; scrollbar-width: thin; scroll-behav
   .js .block h2.is-seen::after, .dusk-sky .stars span, .foot-bears.is-waving, #rsvp-done:not([hidden]) .confirm-bears, .paw { animation: none; }
   .gallery img { transition: none; }
 }
+
+/* Show the whole hero photo, never cropped: size the frame from the viewport height instead */
+.hero-photo { max-width: min(60rem, calc(62vh * 1.5)); }
+.hero-photo img { max-height: none; object-fit: contain; }
+@media (max-width: 700px) { .hero-photo { max-width: 100%; } .hero-photo img { max-height: none; } }
