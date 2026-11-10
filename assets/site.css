@@ -528,18 +528,18 @@ dialog::backdrop { background: rgba(34,49,61,.45); backdrop-filter: blur(3px); }
   display: grid; place-content: center; text-align: center; gap: .2rem;
   transition: transform .9s var(--ease) .45s;
 }
-.env-letter-names { font-size: clamp(1.6rem, 6vw, 2.2rem); color: var(--ink); }
-.env-letter-names em { color: var(--dusty); }
+.env-letter-names { font: 400 clamp(2.3rem, 9vw, 3.1rem)/1.1 "Pinyon Script", var(--font); color: #2C3530; }
+.env-letter-names .plus, .env-seal .plus { font: 400 .45em/1 var(--font); color: var(--ink-soft); vertical-align: .3em; margin: 0 .2em; }
 .env-letter-date { font-style: italic; color: var(--ink-soft); font-size: 1.05rem; }
 .env-seal {
   position: absolute; left: 50%; top: 52%; width: 62px; height: 62px; margin: -31px 0 0 -31px; z-index: 5;
   border-radius: 50%; display: flex; align-items: center; justify-content: center;
-  background: radial-gradient(circle at 35% 30%, #C98A8A, #A35D5D 70%);
+  background: radial-gradient(circle at 35% 30%, #9DB5C8, #4F6C85 72%);
   box-shadow: 0 3px 8px rgba(0,0,0,.25), inset 0 0 0 4px rgba(255,255,255,.12);
-  color: #FBEFEF; font-size: 1.15rem; letter-spacing: -.02em; white-space: nowrap;
+  color: #F8F6F0; font: 400 1.7rem/1 "Pinyon Script", var(--font); white-space: nowrap;
   transition: transform .5s var(--ease), opacity .4s;
 }
-.env-seal em { font-style: italic; margin: 0 .05em; }
+.env-seal .plus { color: #DCE5EC; margin: 0 .08em; }
 .envelope:hover .env-seal { transform: scale(1.06) rotate(-4deg); }
 .envelope-intro.is-opening .env-seal { transform: scale(.6); opacity: 0; }
 .envelope-intro.is-opening .env-flap { transform: perspective(900px) rotateX(180deg); z-index: 1; }
@@ -698,3 +698,45 @@ body:has(.ocean:not(.is-live)) .coast * { animation-play-state: paused; }
 .foot { background: transparent; }
 @media (min-width: 1280px) { .coast-band { display: none; } }
 .foot { border-top: 0; }
+
+/* ---------- Small comforts: reading line with a sailboat, back-to-top, scrollbar, page fade ---------- */
+html { scrollbar-color: #A9BDCD transparent; scrollbar-width: thin; scroll-behavior: smooth; }
+::-webkit-scrollbar { width: 10px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: #B7C8D5; border-radius: 10px; border: 3px solid var(--paper); }
+::-webkit-scrollbar-thumb:hover { background: var(--dusty); }
+::selection { background: #DCE6EE; color: var(--ink); }
+
+.read-line { position: fixed; left: 0; right: 0; top: 0; height: 3px; z-index: 60; pointer-events: none; opacity: 0; transition: opacity .4s; }
+.read-line.is-on { opacity: 1; }
+.read-fill { position: absolute; inset: 0; background: linear-gradient(90deg, #B7C8D5, var(--dusty-deep)); transform-origin: left; transform: scaleX(var(--f, 0)); border-radius: 0 3px 3px 0; }
+.read-boat { position: absolute; top: 2px; left: calc(var(--f, 0) * (100% - 20px)); width: 20px; height: 15px; opacity: .9; animation: boat-bob 2.4s ease-in-out infinite; }
+.read-boat path { fill: var(--dusty-deep); }
+.read-boat .sail { fill: #FFFDF8; stroke: var(--dusty); stroke-width: .8; }
+.read-boat .sail2 { fill: #E8EEF2; stroke: var(--dusty); stroke-width: .8; }
+@keyframes boat-bob { 50% { transform: translateY(1.5px) rotate(-4deg); } }
+
+.to-top {
+  position: fixed; right: max(16px, env(safe-area-inset-right)); bottom: max(18px, env(safe-area-inset-bottom)); z-index: 55;
+  width: 46px; height: 46px; border-radius: 50%; border: 1px solid var(--line); cursor: pointer;
+  background: rgba(248,246,240,.92); backdrop-filter: blur(6px); box-shadow: 0 8px 22px -10px rgba(47,62,78,.45);
+  display: grid; place-items: center; opacity: 0; transform: translateY(14px) scale(.9); pointer-events: none;
+  transition: opacity .35s var(--ease), transform .35s var(--ease), background .2s;
+}
+.to-top.is-on { opacity: 1; transform: none; pointer-events: auto; }
+.to-top svg { width: 20px; height: 20px; fill: none; stroke: var(--dusty-deep); stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+.to-top:hover { background: #fff; }
+.to-top:hover svg { animation: nudge-up .7s ease-in-out infinite; }
+@keyframes nudge-up { 50% { transform: translateY(-3px); } }
+
+.page:not([hidden]) { animation: page-in .55s var(--ease) both; }
+@keyframes page-in { from { opacity: 0; transform: translateY(10px); } }
+
+.env-letter { background-image: radial-gradient(rgba(127,155,179,.07) 1px, transparent 1px); background-size: 7px 7px; }
+.env-seal::after { content: ""; position: absolute; inset: 0; border-radius: 50%; background: linear-gradient(115deg, transparent 35%, rgba(255,255,255,.35) 50%, transparent 65%) -60px 0 / 180% 100% no-repeat; animation: seal-shine 4.5s ease-in-out infinite 1s; }
+@keyframes seal-shine { 40%, 100% { background-position: 60px 0; } }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .read-boat, .to-top:hover svg, .env-seal::after, .page:not([hidden]) { animation: none; }
+}

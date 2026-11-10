@@ -616,6 +616,38 @@
     targets.forEach((el, k) => { el.classList.add("reveal"); el.style.setProperty("--d", `${(k % 3) * 70}ms`); io.observe(el); });
   }
 
+  // ---------- A little sailboat rides the reading line, and a button floats you back up ----------
+
+  function scrollExtras() {
+    const bar = document.createElement("div");
+    bar.className = "read-line";
+    bar.setAttribute("aria-hidden", "true");
+    bar.innerHTML = '<span class="read-fill"></span><svg class="read-boat" viewBox="0 0 28 22"><path d="M1 15h26l-4 6H5Z"/><path class="sail" d="M14 13V1l9 12Z"/><path class="sail2" d="M12 13V5l-6 8Z"/></svg>';
+    document.body.append(bar);
+
+    const up = document.createElement("button");
+    up.type = "button";
+    up.className = "to-top";
+    up.setAttribute("aria-label", "Back to top");
+    up.innerHTML = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 19V6M6 11l6-6 6 6"/></svg>';
+    up.addEventListener("click", () => scrollTo({ top: 0, behavior: reduced ? "auto" : "smooth" }));
+    document.body.append(up);
+
+    let queued = false;
+    const update = () => {
+      queued = false;
+      const max = document.documentElement.scrollHeight - innerHeight;
+      const f = max > 0 ? Math.min(1, scrollY / max) : 0;
+      bar.style.setProperty("--f", f.toFixed(4));
+      bar.classList.toggle("is-on", scrollY > 40);
+      up.classList.toggle("is-on", scrollY > innerHeight * 0.9);
+    };
+    addEventListener("scroll", () => { if (!queued) { queued = true; requestAnimationFrame(update); } }, { passive: true });
+    addEventListener("resize", update);
+    document.addEventListener("click", e => { if (e.target.closest("a[data-tab]")) setTimeout(update, 400); });
+    update();
+  }
+
   // ---------- Wire up ----------
 
   function init() {
@@ -638,6 +670,7 @@
     lightbox();
     petals();
     reveals();
+    scrollExtras();
 
     // fonts change tab widths, so place the bears again once they've loaded
     showTab(location.hash.slice(1) || "home", false);
